@@ -27,9 +27,14 @@ namespace MusicLibraryWebAPI.Controllers
 
         // GET api/<SongsController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return "value";
+            var song = _context.Songs.Where(s => s.Id == id).SingleOrDefault();
+            if (song == null)
+            {
+                return NotFound();
+            }
+            return Ok(song);
         }
 
         // POST api/<SongsController>
