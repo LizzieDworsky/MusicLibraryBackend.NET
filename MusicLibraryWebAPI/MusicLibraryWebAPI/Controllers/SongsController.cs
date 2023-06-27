@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MusicLibraryWebAPI.Data;
+using MusicLibraryWebAPI.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -32,8 +33,11 @@ namespace MusicLibraryWebAPI.Controllers
 
         // POST api/<SongsController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post([FromBody] Song newSong)
         {
+            _context.Songs.Add(newSong);
+            _context.SaveChanges();
+            return StatusCode(201, newSong);
         }
 
         // PUT api/<SongsController>/5
