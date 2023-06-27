@@ -19,9 +19,10 @@ namespace MusicLibraryWebAPI.Controllers
     
         // GET: api/<SongsController>
             [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult Get()
         {
-            return new string[] { "value1", "value2" };
+            var songs = _context.Songs.ToList();
+            return Ok(songs);
         }
 
         // GET api/<SongsController>/5
