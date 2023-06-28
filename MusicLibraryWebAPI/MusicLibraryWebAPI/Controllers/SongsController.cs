@@ -65,6 +65,20 @@ namespace MusicLibraryWebAPI.Controllers
             return Ok(song);
         }
 
+        [HttpPatch("{id}")]
+        public IActionResult Patch(int id)
+        {
+            var song = _context.Songs.Where(s => s.Id == id).SingleOrDefault();
+            if (song == null)
+            {
+                return NotFound();
+            }
+            song.Likes++;
+            _context.Songs.Update(song);
+            _context.SaveChanges();
+            return Ok(song);
+        }
+
         // DELETE api/<SongsController>/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
